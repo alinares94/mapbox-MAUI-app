@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiBlazorApp.BlazorPage"
              xmlns:local="clr-namespace:MauiBlazorApp"
-             Title="BlazorPage">
+             Title="BlazorPage" BackgroundColor="White">
     <BlazorWebView HostPage="wwwroot/index.html">
         <BlazorWebView.RootComponents>
             <RootComponent Selector="#app" ComponentType="{x:Type local:Main}" />

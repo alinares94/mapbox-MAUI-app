@@ -7,7 +7,7 @@
 @code {
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnInitializedAsync();
+        await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
             await JS.InvokeVoidAsync("displayMapJS");
     }
