@@ -1,0 +1,14 @@
+﻿@page "/map"
+@inject IJSRuntime JS
+
+<div id="map" class="map-size">
+</div>
+
+@code {
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnInitializedAsync();
+        if (firstRender)
+            await JS.InvokeVoidAsync("displayMapJS");
+    }
+}
