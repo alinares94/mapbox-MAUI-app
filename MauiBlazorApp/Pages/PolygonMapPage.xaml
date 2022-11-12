@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:polygon="clr-namespace:MauiBlazorApp.BlazorControls.MapGeojsonPolygon"
+             x:Class="MauiBlazorApp.Pages.PolygonMapPage"
+             Title="GeoJson Polygon Map Page">
+    <Grid Padding="30" RowDefinitions="Auto, *">
+        <Label Text="This text is a a XAML control, but the control below is BLAZOR!" FontSize="Body"
+            VerticalOptions="Center" FontAttributes="Bold"
+            HorizontalOptions="Center" />
+
+        <polygon:MapGeojsonPolygonControl Grid.Row="1"></polygon:MapGeojsonPolygonControl>
+    </Grid>
+</ContentPage>

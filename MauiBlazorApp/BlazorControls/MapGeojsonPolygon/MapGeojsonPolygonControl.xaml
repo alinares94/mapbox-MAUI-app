@@ -5,6 +5,6 @@
                x:Class="MauiBlazorApp.BlazorControls.MapGeojsonPolygon.MapGeojsonPolygonControl"
                HostPage="wwwroot/index.html">
     <BlazorWebView.RootComponents>
-        <RootComponent Selector="#app" ComponentType="{x:Type local:MapGeojsonPolygon}" />
+        <RootComponent Selector="#content" ComponentType="{x:Type local:MapGeojsonPolygon}" />
     </BlazorWebView.RootComponents>
 </BlazorWebView>

@@ -6,9 +6,6 @@ public partial class App : Application
 	{
 		InitializeComponent();
 
-		MainPage = new NavigationPage(new MauiPage())
-		{
-			BarTextColor = Colors.Black
-		};
+		MainPage = new AppShell();
 	}
 }

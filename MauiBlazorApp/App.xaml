@@ -6,7 +6,6 @@
     <Application.Resources>
         <ResourceDictionary>
             <Style TargetType="Label">
-                <Setter Property="TextColor" Value="#3F3F3F" />
                 <Setter Property="FontFamily" Value="OpenSansRegular" />
             </Style>
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:marker="clr-namespace:MauiBlazorApp.BlazorControls.MapMarker"
+             x:Class="MauiBlazorApp.Pages.MarkerPage"
+             Title="Popup Marker Page">
+    <Grid Padding="30" RowDefinitions="Auto, *">
+        <Label Text="This text is a a XAML control, but the control below is BLAZOR!" FontSize="Body"
+            VerticalOptions="Center" FontAttributes="Bold"
+            HorizontalOptions="Center" />
+
+        <marker:MapMarkerControl Grid.Row="1"></marker:MapMarkerControl>
+    </Grid>
+</ContentPage>

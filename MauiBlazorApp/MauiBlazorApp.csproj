@@ -59,22 +59,43 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="BlazorControls\MapMarker\MapMarkerControl.xaml.cs">
+	    <DependentUpon>MapMarkerControl.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="BlazorControls\MapGeojsonPolygon\MapGeojsonPolygonControl.xaml.cs">
 	    <DependentUpon>MapGeojsonPolygonControl.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="MauiPage.xaml.cs">
-	    <DependentUpon>MauiPage.xaml</DependentUpon>
+	  <Compile Update="Pages\PolygonMapPage.xaml.cs">
+	    <DependentUpon>PolygonMapPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\MarkerPage.xaml.cs">
+	    <DependentUpon>MarkerPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\SimpleMapPage.xaml.cs">
+	    <DependentUpon>SimpleMapPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="AppShell.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="BlazorControls\MapMarker\MapMarkerControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="BlazorControls\MapGeojsonPolygon\MapGeojsonPolygonControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="BlazorControls\Map\MapControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MauiPage.xaml">
+	  <MauiXaml Update="Pages\PolygonMapPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\MarkerPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\SimpleMapPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
