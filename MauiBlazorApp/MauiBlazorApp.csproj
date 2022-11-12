@@ -50,25 +50,37 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Data\" />
+	  <AndroidResource Remove="Data\**" />
+	  <Compile Remove="Data\**" />
+	  <Content Remove="Data\**" />
+	  <EmbeddedResource Remove="Data\**" />
+	  <MauiXaml Remove="Data\**" />
+	  <None Remove="Data\**" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="BlazorControls\MapGeojsonPolygon\MapGeojsonPolygonControl.xaml.cs">
+	    <DependentUpon>MapGeojsonPolygonControl.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="MauiPage.xaml.cs">
 	    <DependentUpon>MauiPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="BlazorPage.xaml.cs">
-	    <DependentUpon>BlazorPage.xaml</DependentUpon>
-	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="BlazorControls\MapGeojsonPolygon\MapGeojsonPolygonControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="BlazorControls\Map\MapControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="MauiPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="BlazorPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\js\" />
 	</ItemGroup>
 
 </Project>

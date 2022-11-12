@@ -1,7 +1,6 @@
-﻿@page "/map"
-@inject IJSRuntime JS
+﻿@inject IJSRuntime JS
 
-<div id="map" class="map-size">
+<div id="map" class="full-size">
 </div>
 
 @code {
@@ -9,6 +8,6 @@
     {
         await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
-            await JS.InvokeVoidAsync("displayMapJS");
+            await JS.InvokeVoidAsync("displayMapWithPolygonJS");
     }
 }
