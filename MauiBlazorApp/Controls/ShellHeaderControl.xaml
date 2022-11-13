@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="MauiBlazorApp.Controls.ShellHeaderControl"
+        HeightRequest="100"
+        Padding="0" StrokeThickness="0" BackgroundColor="{StaticResource BlueMapbox}" Margin="0,0,0,10">
+    <HorizontalStackLayout Padding="10, 30">
+        <Image VerticalOptions="Center" Margin="10,0" HeightRequest="25">
+            <Image.Source>
+                <FontImageSource FontFamily="MaterialIcons" Color="White" Glyph="{StaticResource IconMapbox}"/>
+            </Image.Source>
+        </Image>
+        <Label Text="MAUI Mapbox" FontSize="Large" VerticalOptions="Center" TextColor="White"/>
+    </HorizontalStackLayout>
+</Border>

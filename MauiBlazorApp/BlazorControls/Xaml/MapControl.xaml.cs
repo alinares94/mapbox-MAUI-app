@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components.WebView.Maui;
 
-namespace MauiBlazorApp.BlazorControls.Map;
+namespace MauiBlazorApp.BlazorControls.Xaml;
 
 public partial class MapControl : BlazorWebView
 {

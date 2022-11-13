@@ -4,22 +4,50 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:MauiBlazorApp.Pages"
-    Shell.FlyoutBehavior="{OnPlatform Default=Flyout, WinUI=Locked}">
+    xmlns:controls="clr-namespace:MauiBlazorApp.Controls"
+    Shell.FlyoutBehavior="{OnIdiom Phone=Flyout, Default=Locked}">
+
+    <Shell.FlyoutHeader>
+        <controls:ShellHeaderControl/>
+    </Shell.FlyoutHeader>
 
     <FlyoutItem Title="Simple Map">
+        <FlyoutItem.FlyoutIcon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconMap}"
+                             Color="{AppThemeBinding Dark=White, Default=White,Light=Black}"/>
+        </FlyoutItem.FlyoutIcon>
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate pages:SimpleMapPage}" />
         </Tab>
     </FlyoutItem>
+    
     <FlyoutItem Title="Geojson Polygon">
+        <FlyoutItem.FlyoutIcon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconCodeJson}"
+                             Color="{AppThemeBinding Dark=White, Default=White,Light=Black}"/>
+        </FlyoutItem.FlyoutIcon>
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate pages:PolygonMapPage}" />
         </Tab>
     </FlyoutItem>
+    
     <FlyoutItem Title="Popup Marker">
+        <FlyoutItem.FlyoutIcon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconMapMarker}"
+                             Color="{AppThemeBinding Dark=White, Default=White,Light=Black}"/>
+        </FlyoutItem.FlyoutIcon>
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate pages:MarkerPage}" />
         </Tab>
     </FlyoutItem>
-
+    
+    <FlyoutItem Title="User Location">
+        <FlyoutItem.FlyoutIcon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconCrosshairsGps}"
+                             Color="{AppThemeBinding Dark=White, Default=White,Light=Black}"/>
+        </FlyoutItem.FlyoutIcon>
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate pages:LocationMapPage}" />
+        </Tab>
+    </FlyoutItem>
 </Shell>

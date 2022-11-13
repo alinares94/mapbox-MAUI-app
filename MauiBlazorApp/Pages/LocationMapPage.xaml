@@ -2,13 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:blazor="clr-namespace:MauiBlazorApp.BlazorControls.Xaml"
-             x:Class="MauiBlazorApp.Pages.SimpleMapPage"
-             Title="Simple Map Page">
+             x:Class="MauiBlazorApp.Pages.LocationMapPage"
+             Title="User Location Map Page">
     <Grid Padding="30" RowDefinitions="Auto, *">
         <Label Text="This text is a a XAML control, but the control below is BLAZOR!" FontSize="Body"
             VerticalOptions="Center" FontAttributes="Bold"
             HorizontalOptions="Center" />
 
-        <blazor:MapControl Grid.Row="1"></blazor:MapControl>
+        <blazor:MapLocationControl Grid.Row="1"></blazor:MapLocationControl>
     </Grid>
 </ContentPage>

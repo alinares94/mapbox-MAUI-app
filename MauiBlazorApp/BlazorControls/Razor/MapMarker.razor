@@ -1,0 +1,33 @@
+﻿@using MauiBlazorApp.BlazorControls.Xaml;
+@inject IJSRuntime JS
+
+<div id="map" class="full-size">
+</div>
+
+@code {
+
+    private DotNetObjectReference<MapMarker> objRef;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        objRef = DotNetObjectReference.Create(this);
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+            await JS.InvokeVoidAsync("displayMapMarkerJS", objRef);
+    }
+
+    [JSInvokable]
+    public void MethodFromJS(string param)
+    {
+        SourceControl?.MarkerOpened(this, param);
+    }
+
+    [Parameter]
+    public MapMarkerControl SourceControl { get; set; }
+}

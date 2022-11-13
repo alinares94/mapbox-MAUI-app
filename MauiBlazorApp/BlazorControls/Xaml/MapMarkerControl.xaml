@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <BlazorWebView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-               xmlns:local="clr-namespace:MauiBlazorApp.BlazorControls.MapGeojsonPolygon"
-               x:Class="MauiBlazorApp.BlazorControls.MapGeojsonPolygon.MapGeojsonPolygonControl"
+               xmlns:razor="clr-namespace:MauiBlazorApp.BlazorControls.Razor"
+               x:Class="MauiBlazorApp.BlazorControls.Xaml.MapMarkerControl"
                HostPage="wwwroot/index.html">
     <BlazorWebView.RootComponents>
-        <RootComponent Selector="#content" ComponentType="{x:Type local:MapGeojsonPolygon}" />
+        <RootComponent x:Name="rootComponent" Selector="#content" ComponentType="{x:Type razor:MapMarker}" />
     </BlazorWebView.RootComponents>
 </BlazorWebView>

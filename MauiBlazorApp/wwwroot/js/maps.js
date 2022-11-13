@@ -1,5 +1,7 @@
 
 const key = '<MAPBOX-KEY>';
+const defaultContainer = 'map';
+const defaultStyle = 'mapbox://styles/mapbox/streets-v11';
 
 /** 
  * Show a simple map
@@ -8,8 +10,8 @@ function displayMapJS() {
 
     mapboxgl.accessToken = key
     new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
+        container: defaultContainer,
+        style: defaultStyle,
         center: [-3.007208155925328, 39.161296491274676],
         zoom: 12
     });
@@ -22,8 +24,8 @@ function displayMapPolygonJS() {
 
     mapboxgl.accessToken = key
     const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
+        container: defaultContainer,
+        style: defaultStyle,
         center: [-68.137343, 45.137451],
         zoom: 5
     });
@@ -91,29 +93,57 @@ function displayMapPolygonJS() {
 /**
  * Show a map marker with a popup message when the user click on it
  */
-function displayMapMarkerJS() {
+function displayMapMarkerJS(dotNetHelper) {
 
     mapboxgl.accessToken = key
     const monument = [-77.0353, 38.8895];
     const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
+        container: defaultContainer,
+        style: defaultStyle,
         center: monument,
         zoom: 15
     });
 
     // create the popup
-    const popup = new mapboxgl.Popup({ offset: 25 }).setText(
+    const popup = new mapboxgl.Popup({ offset: 25, closeButton: false }).setText(
         'Lorem ipsum dolor sit amet consectetur adipiscing, elit habitasse velit sodales cubilia non, sem in nostra magna eros.'
     );
 
     // create DOM element for the marker
     const el = document.createElement('div');
     el.id = 'marker';
-
     // create the marker
-    new mapboxgl.Marker(el)
+    const marker = new mapboxgl.Marker(el)
         .setLngLat(monument)
         .setPopup(popup) // sets a popup on this marker
         .addTo(map);
+    
+    marker.getElement().addEventListener('click', () => dotNetHelper.invokeMethodAsync('MethodFromJS', 'MARKER OPENED!'));
+}
+
+/**
+ * Show a map with user realtime location
+ */
+function displayMapLocationJS() {
+
+    mapboxgl.accessToken = key
+    const map = new mapboxgl.Map({
+        container: defaultContainer,
+        style: defaultStyle,
+        center: [-3.007208155925328, 39.161296491274676],
+        zoom: 12
+    });
+
+    // Add geolocate control to the map.
+    map.addControl(
+        new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            // When active the map will receive updates to the device's location as it changes.
+            trackUserLocation: true,
+            // Draw an arrow next to the location dot to indicate which direction the device is heading.
+            showUserHeading: true
+        })
+    );
 }

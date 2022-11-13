@@ -10,13 +10,13 @@ public static class MauiProgram
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+				fonts.AddFont("MaterialIcons.ttf", "MaterialIcons");
 			});
 
 		builder.Services.AddMauiBlazorWebView();
-		#if DEBUG
-			builder.Services.AddBlazorWebViewDeveloperTools();
-		#endif
-
-		return builder.Build();
+#if DEBUG
+		builder.Services.AddBlazorWebViewDeveloperTools();
+#endif
+        return builder.Build();
 	}
 }

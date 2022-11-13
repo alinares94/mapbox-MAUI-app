@@ -31,6 +31,11 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(TargetFramework)'=='net6.0-ios'">
+	  <ProvisioningType>manual</ProvisioningType>
+	  <CodesignProvision></CodesignProvision>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#0E59C7" />
@@ -59,11 +64,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="BlazorControls\MapMarker\MapMarkerControl.xaml.cs">
+	  <None Remove="Resources\Fonts\MaterialIcons.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="BlazorControls\Xaml\MapLocationControl.xaml.cs">
+	    <DependentUpon>MapLocationControl.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="BlazorControls\Xaml\MapMarkerControl.xaml.cs">
 	    <DependentUpon>MapMarkerControl.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="BlazorControls\MapGeojsonPolygon\MapGeojsonPolygonControl.xaml.cs">
+	  <Compile Update="BlazorControls\Xaml\MapGeojsonPolygonControl.xaml.cs">
 	    <DependentUpon>MapGeojsonPolygonControl.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Controls\ShellHeaderControl.xaml.cs">
+	    <DependentUpon>ShellHeaderControl.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\LocationMapPage.xaml.cs">
+	    <DependentUpon>LocationMapPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Pages\PolygonMapPage.xaml.cs">
 	    <DependentUpon>PolygonMapPage.xaml</DependentUpon>
@@ -80,13 +98,22 @@
 	  <MauiXaml Update="AppShell.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="BlazorControls\MapMarker\MapMarkerControl.xaml">
+	  <MauiXaml Update="BlazorControls\Xaml\MapLocationControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="BlazorControls\MapGeojsonPolygon\MapGeojsonPolygonControl.xaml">
+	  <MauiXaml Update="BlazorControls\Xaml\MapMarkerControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="BlazorControls\Map\MapControl.xaml">
+	  <MauiXaml Update="BlazorControls\Xaml\MapGeojsonPolygonControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="BlazorControls\Xaml\MapControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\ShellHeaderControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\LocationMapPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\PolygonMapPage.xaml">

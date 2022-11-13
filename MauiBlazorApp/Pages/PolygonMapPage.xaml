@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:polygon="clr-namespace:MauiBlazorApp.BlazorControls.MapGeojsonPolygon"
+             xmlns:blazor="clr-namespace:MauiBlazorApp.BlazorControls.Xaml"
              x:Class="MauiBlazorApp.Pages.PolygonMapPage"
              Title="GeoJson Polygon Map Page">
     <Grid Padding="30" RowDefinitions="Auto, *">
@@ -9,6 +9,6 @@
             VerticalOptions="Center" FontAttributes="Bold"
             HorizontalOptions="Center" />
 
-        <polygon:MapGeojsonPolygonControl Grid.Row="1"></polygon:MapGeojsonPolygonControl>
+        <blazor:MapGeojsonPolygonControl Grid.Row="1"></blazor:MapGeojsonPolygonControl>
     </Grid>
 </ContentPage>
