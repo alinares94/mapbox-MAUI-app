@@ -68,6 +68,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="BlazorControls\Xaml\MapLayersControl.xaml.cs">
+	    <DependentUpon>MapLayersControl.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="BlazorControls\Xaml\MapLocationControl.xaml.cs">
 	    <DependentUpon>MapLocationControl.xaml</DependentUpon>
 	  </Compile>
@@ -98,6 +101,9 @@
 	  <MauiXaml Update="AppShell.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="BlazorControls\Xaml\MapLayersControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="BlazorControls\Xaml\MapLocationControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -113,6 +119,9 @@
 	  <MauiXaml Update="Controls\ShellHeaderControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\LayersPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\LocationMapPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -125,10 +134,6 @@
 	  <MauiXaml Update="Pages\SimpleMapPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="wwwroot\js\" />
 	</ItemGroup>
 
 </Project>

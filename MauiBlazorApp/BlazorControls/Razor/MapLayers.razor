@@ -1,0 +1,30 @@
+﻿@using MauiBlazorApp.Constants;
+@using MauiBlazorApp.Pages;
+@inject IJSRuntime JS
+@page "/Mapbox"
+
+<div id="map" class="full-size">
+</div>
+
+@code {
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("loadMainLayer");
+            ManageSubscriptions();
+        }
+    }
+
+    private void ManageSubscriptions()
+    {
+        MessagingCenter.Unsubscribe<LayersPage>(this, MessagingConstants.MAP_LAYER_ROAD);
+        MessagingCenter.Unsubscribe<LayersPage>(this, MessagingConstants.MAP_LAYER_POINTS);
+
+        MessagingCenter.Subscribe<LayersPage>(this, MessagingConstants.MAP_LAYER_ROAD,
+            async (sender) => await JS.InvokeVoidAsync("toggleLineLayer"));
+        MessagingCenter.Subscribe<LayersPage>(this, MessagingConstants.MAP_LAYER_POINTS,
+            async (sender) => await JS.InvokeVoidAsync("addPointsLayer"));
+    }
+}

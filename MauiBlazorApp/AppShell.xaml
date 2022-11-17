@@ -50,4 +50,14 @@
             <ShellContent ContentTemplate="{DataTemplate pages:LocationMapPage}" />
         </Tab>
     </FlyoutItem>
+
+    <FlyoutItem Title="Custom Layers">
+        <FlyoutItem.FlyoutIcon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconLayers}"
+                             Color="{AppThemeBinding Dark=White, Default=White,Light=Black}"/>
+        </FlyoutItem.FlyoutIcon>
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate pages:LayersPage}" />
+        </Tab>
+    </FlyoutItem>
 </Shell>

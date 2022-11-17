@@ -1,7 +1,7 @@
 
-const key = '<MAPBOX-KEY>';
 const defaultContainer = 'map';
 const defaultStyle = 'mapbox://styles/mapbox/streets-v11';
+let mapLayers;
 
 /** 
  * Show a simple map
@@ -146,4 +146,162 @@ function displayMapLocationJS() {
             showUserHeading: true
         })
     );
+}
+
+/**
+ * Load the main layer map
+ */
+function loadMainLayer() {
+    mapboxgl.accessToken = key
+    mapLayers = new mapboxgl.Map({
+        container: defaultContainer,
+        style: defaultStyle,
+        center: [-122.486052, 37.830348],
+        zoom: 15
+    });
+}
+
+/**
+ * Show a route with geojson
+ */
+function toggleLineLayer() {
+    const sourceId = 'route';
+    if (deleteSource(sourceId)) {
+        return;
+    }
+    mapLayers.addSource(sourceId, {
+        'type': 'geojson',
+        'data': {
+            'type': 'Feature',
+            'properties': {},
+            'geometry': {
+                'type': 'LineString',
+                'coordinates': [
+                    [-122.483696, 37.833818],
+                    [-122.483482, 37.833174],
+                    [-122.483396, 37.8327],
+                    [-122.483568, 37.832056],
+                    [-122.48404, 37.831141],
+                    [-122.48404, 37.830497],
+                    [-122.483482, 37.82992],
+                    [-122.483568, 37.829548],
+                    [-122.48507, 37.829446],
+                    [-122.4861, 37.828802],
+                    [-122.486958, 37.82931],
+                    [-122.487001, 37.830802],
+                    [-122.487516, 37.831683],
+                    [-122.488031, 37.832158],
+                    [-122.488889, 37.832971],
+                    [-122.489876, 37.832632],
+                    [-122.490434, 37.832937],
+                    [-122.49125, 37.832429],
+                    [-122.491636, 37.832564],
+                    [-122.492237, 37.833378],
+                    [-122.493782, 37.833683]
+                ]
+            }
+        }
+    });
+    mapLayers.addLayer({
+        'id': sourceId,
+        'type': 'line',
+        'source': sourceId,
+        'layout': {
+            'line-join': 'round',
+            'line-cap': 'round'
+        },
+        'paint': {
+            'line-color': '#888',
+            'line-width': 8
+        }
+    }, mapLayers.getLayer('points') ? 'points' : undefined);
+}
+
+function addPointsLayer() {
+    const sourceId = 'points';
+    if (deleteSource(sourceId)) {
+        return;
+    }
+    // Add an image to use as a custom marker
+    mapLayers.loadImage(
+        'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+        (error, image) => {
+            if (error) throw error;
+            mapLayers.addImage('custom-marker', image);
+            // Add a GeoJSON source with 2 points
+            mapLayers.addSource(sourceId, {
+                'type': 'geojson',
+                'data': {
+                    'type': 'FeatureCollection',
+                    'features': [
+                        {
+                            // feature for Mapbox DC
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [-122.4861, 37.828802]
+                            },
+                            'properties': {
+                                'title': 'Mapbox DC'
+                            }
+                        },
+                        {
+                            // feature for Mapbox SF
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [-122.49125, 37.832429]
+                            },
+                            'properties': {
+                                'title': 'Mapbox SF'
+                            }
+                        },
+                        {
+                            // feature for Mapbox SF
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [-122.483696, 37.833818]
+                            },
+                            'properties': {
+                                'title': 'Mapbox SF'
+                            }
+                        }
+                    ]
+                }
+            });
+
+            // Add a symbol layer
+            mapLayers.addLayer({
+                'id': sourceId,
+                'type': 'symbol',
+                'source': sourceId,
+                'layout': {
+                    'icon-image': 'custom-marker',
+                    // get the title name from the source's "title" property
+                    'text-field': ['get', 'title'],
+                    'text-font': [
+                        'Open Sans Semibold',
+                        'Arial Unicode MS Bold'
+                    ],
+                    'text-offset': [0, 1.25],
+                    'text-anchor': 'top'
+                }
+            });
+        }
+    );
+}
+
+function deleteSource(sourceId) {
+    let layerRemoved = false;
+    if (mapLayers.getLayer(sourceId)) {
+        layerRemoved = true;
+        mapLayers.removeLayer(sourceId);
+    }
+    if (mapLayers.getSource(sourceId)) {
+        layerRemoved = true;
+        mapLayers.removeSource(sourceId);
+    }
+
+    return layerRemoved;
 }
