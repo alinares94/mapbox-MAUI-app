@@ -5,6 +5,11 @@
 
 <div id="map" class="full-size">
 </div>
+<style>
+    .hide-compass {
+        display: none
+    }
+</style>
 
 @code {
     protected async override Task OnAfterRenderAsync(bool firstRender)
@@ -21,10 +26,37 @@
     {
         MessagingCenter.Unsubscribe<LayersPage>(this, MessagingConstants.MAP_LAYER_ROAD);
         MessagingCenter.Unsubscribe<LayersPage>(this, MessagingConstants.MAP_LAYER_POINTS);
+        MessagingCenter.Unsubscribe<LayersPage>(this, MessagingConstants.MAP_LAYER_COMPASS);
+        MessagingCenter.Unsubscribe<LayersPage, bool>(this, MessagingConstants.MAP_CHANGE_ZOOM);
+        MessagingCenter.Unsubscribe<LayersPage, bool>(this, MessagingConstants.MAP_CHANGE_ROTATION);
+        MessagingCenter.Unsubscribe<LayersPage, bool>(this, MessagingConstants.MAP_CHANGE_INACTIVE);
+        MessagingCenter.Unsubscribe<LayersPage, string>(this, MessagingConstants.MAP_SET_ZOOM);
+        MessagingCenter.Unsubscribe<LayersPage, string[]>(this, MessagingConstants.MAP_SET_CENTER);
+        MessagingCenter.Unsubscribe<LayersPage, double>(this, MessagingConstants.MAP_SET_ROTATION);
+        MessagingCenter.Unsubscribe<LayersPage, string>(this, MessagingConstants.MAP_GET_LAYERS);
 
         MessagingCenter.Subscribe<LayersPage>(this, MessagingConstants.MAP_LAYER_ROAD,
             async (sender) => await JS.InvokeVoidAsync("toggleLineLayer"));
         MessagingCenter.Subscribe<LayersPage>(this, MessagingConstants.MAP_LAYER_POINTS,
             async (sender) => await JS.InvokeVoidAsync("addPointsLayer"));
+        MessagingCenter.Subscribe<LayersPage>(this, MessagingConstants.MAP_LAYER_COMPASS,
+            async (sender) => await JS.InvokeVoidAsync("addCompassLayer"));
+        MessagingCenter.Subscribe<LayersPage, bool>(this, MessagingConstants.MAP_CHANGE_ZOOM,
+            async (sender, arg) => await JS.InvokeVoidAsync("changeZoom", arg ? "ENABLE" : "DISABLE"));
+        MessagingCenter.Subscribe<LayersPage, bool>(this, MessagingConstants.MAP_CHANGE_ROTATION,
+            async (sender, arg) => await JS.InvokeVoidAsync("changeRotation", arg ? "ENABLE" : "DISABLE"));
+        MessagingCenter.Subscribe<LayersPage, bool>(this, MessagingConstants.MAP_CHANGE_INACTIVE,
+            async (sender, arg) => await JS.InvokeVoidAsync("changeInactive", arg ? "ENABLE" : "DISABLE"));
+        MessagingCenter.Subscribe<LayersPage, string>(this, MessagingConstants.MAP_SET_ZOOM,
+            async (sender, arg) => await JS.InvokeVoidAsync("setZoom", Convert.ToDecimal(arg)));
+        MessagingCenter.Subscribe<LayersPage, string[]>(this, MessagingConstants.MAP_SET_CENTER,
+            async (sender, arg) => await JS.InvokeVoidAsync("setCenter", Convert.ToDecimal(arg[0]), Convert.ToDecimal(arg[1])));
+        MessagingCenter.Subscribe<LayersPage, double>(this, MessagingConstants.MAP_SET_ROTATION,
+            async (sender, arg) => await JS.InvokeVoidAsync("setRotation", arg));
+        MessagingCenter.Subscribe<LayersPage>(this, MessagingConstants.MAP_GET_LAYERS,
+            async (sender) =>
+            {
+                var result = await JS.InvokeAsync<string>("getLayers");
+            });
     }
 }

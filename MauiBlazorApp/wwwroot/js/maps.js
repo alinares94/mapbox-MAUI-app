@@ -157,8 +157,34 @@ function loadMainLayer() {
         container: defaultContainer,
         style: defaultStyle,
         center: [-122.486052, 37.830348],
-        zoom: 15
+        zoom: 13
     });
+
+    const nav = new mapboxgl.NavigationControl({
+        visualizePitch: false,
+        showZoom: false
+    });
+    mapLayers.addControl(nav, 'top-left');
+
+    // Add an image to use as a custom marker
+    mapLayers.loadImage(
+        'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+        (error, image) => {
+            if (error) throw error;
+            mapLayers.addImage('custom-marker', image);
+
+        }
+    );
+
+    // Add an image to use as a custom marker
+    mapLayers.loadImage(
+        'https://www.gravatar.com/avatar/0e9b085a0746e26b87414cde7ba6369f?s=50',
+        (error, image) => {
+            if (error) throw error;
+            mapLayers.addImage('custom-marker2', image);
+
+        }
+    );
 }
 
 /**
@@ -222,74 +248,138 @@ function addPointsLayer() {
     if (deleteSource(sourceId)) {
         return;
     }
-    // Add an image to use as a custom marker
-    mapLayers.loadImage(
-        'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
-        (error, image) => {
-            if (error) throw error;
-            mapLayers.addImage('custom-marker', image);
-            // Add a GeoJSON source with 2 points
-            mapLayers.addSource(sourceId, {
-                'type': 'geojson',
-                'data': {
-                    'type': 'FeatureCollection',
-                    'features': [
-                        {
-                            // feature for Mapbox DC
-                            'type': 'Feature',
-                            'geometry': {
-                                'type': 'Point',
-                                'coordinates': [-122.4861, 37.828802]
-                            },
-                            'properties': {
-                                'title': 'Mapbox DC'
-                            }
-                        },
-                        {
-                            // feature for Mapbox SF
-                            'type': 'Feature',
-                            'geometry': {
-                                'type': 'Point',
-                                'coordinates': [-122.49125, 37.832429]
-                            },
-                            'properties': {
-                                'title': 'Mapbox SF'
-                            }
-                        },
-                        {
-                            // feature for Mapbox SF
-                            'type': 'Feature',
-                            'geometry': {
-                                'type': 'Point',
-                                'coordinates': [-122.483696, 37.833818]
-                            },
-                            'properties': {
-                                'title': 'Mapbox SF'
-                            }
-                        }
-                    ]
-                }
-            });
 
-            // Add a symbol layer
-            mapLayers.addLayer({
-                'id': sourceId,
-                'type': 'symbol',
-                'source': sourceId,
-                'layout': {
-                    'icon-image': 'custom-marker',
-                    // get the title name from the source's "title" property
-                    'text-field': ['get', 'title'],
-                    'text-font': [
-                        'Open Sans Semibold',
-                        'Arial Unicode MS Bold'
-                    ],
-                    'text-offset': [0, 1.25],
-                    'text-anchor': 'top'
+    // Add a GeoJSON source with 2 points
+    mapLayers.addSource(sourceId, {
+        'type': 'geojson',
+        'data': {
+            'type': 'FeatureCollection',
+            'features': [
+                {
+                    // feature for Mapbox DC
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [-122.4861, 37.828802]
+                    },
+                    'properties': {
+                        'title': 'Icon1'
+                    }
+                },
+                {
+                    // feature for Mapbox SF
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [-122.49125, 37.832429]
+                    },
+                    'properties': {
+                        'title': 'Icon2'
+                    }
+                },
+                {
+                    // feature for Mapbox SF
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [-122.483696, 37.833818]
+                    },
+                    'properties': {
+                        'title': 'Icon3'
+                    }
                 }
-            });
+            ]
         }
-    );
+    });
+
+    // Add a symbol layer
+    mapLayers.addLayer({
+        'id': sourceId,
+        'type': 'symbol',
+        'source': sourceId,
+        'layout': {
+            //'icon-image': 'custom-marker',
+            'icon-image': [
+                'match',
+                ["string", ["get", "title"]],
+                'Icon2',
+                'custom-marker2',
+                "custom-marker" //default
+            ],
+            // get the title name from the source's "title" property
+            'text-field': ['get', 'title'],
+            'text-font': [
+                'Open Sans Semibold',
+                'Arial Unicode MS Bold'
+            ],
+            'text-offset': [0, 1.25],
+            'text-anchor': 'top'
+        }
+    });
+}
+
+function addCompassLayer() {
+    const cssHide = 'hide-compass';
+    const compass = document.getElementsByClassName('mapboxgl-ctrl-compass')[0];
+    if (compass.classList.contains(cssHide)) {
+        compass.classList.remove(cssHide);
+    }
+    else {
+        compass.classList.add(cssHide);
+    }
+}
+
+function changeZoom(isEnabled) {
+    changeHandler(isEnabled === 'ENABLE', 'doubleClickZoom');
+    changeHandler(isEnabled === 'ENABLE', 'scrollZoom');
+}
+
+function changeRotation(isEnabled) {
+    mapLayers.touchZoomRotate.enable();
+    if (isEnabled === 'ENABLE') {
+        mapLayers.touchZoomRotate.enableRotation();
+    }
+    else {
+        mapLayers.touchZoomRotate.disableRotation();
+    }
+}
+
+function changeInactive(isEnabled) {
+    changeHandler(isEnabled === 'ENABLE', 'boxZoom');
+    changeHandler(isEnabled === 'ENABLE', 'scrollZoom');
+    changeHandler(isEnabled === 'ENABLE', 'dragPan');
+    changeHandler(isEnabled === 'ENABLE', 'dragRotate');
+    changeHandler(isEnabled === 'ENABLE', 'keyboard');
+    changeHandler(isEnabled === 'ENABLE', 'doubleClickZoom');
+    changeHandler(isEnabled === 'ENABLE', 'touchZoomRotate');
+}
+
+function setZoom(zoom) {
+    mapLayers.zoomTo(zoom);
+}
+
+function setRotation(value) {
+    mapLayers.setBearing(value);
+}
+
+function setCenter(lat, lon) {
+    mapLayers.flyTo({
+        center: [lat, lon],
+        essential: true // this animation is considered essential with respect to prefers-reduced-motion
+    });
+}
+
+function getLayers() {
+    return JSON.stringify(mapLayers.getStyle().layers);
+}
+
+function changeHandler(enable, handlerName) {
+    if (enable) {
+        mapLayers[handlerName].enable();
+    }
+    else {
+        mapLayers[handlerName].disable();
+    }
 }
 
 function deleteSource(sourceId) {

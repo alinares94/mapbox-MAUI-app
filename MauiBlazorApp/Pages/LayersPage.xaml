@@ -10,31 +10,81 @@
                 <Setter Property="HeightRequest" Value="50"/>
                 <Setter Property="WidthRequest" Value="50"/>
                 <Setter Property="CornerRadius" Value="25"/>
+                <Setter Property="Padding" Value="10"/>
                 <Setter Property="BackgroundColor" Value="{StaticResource BlueMapbox}"/>
+            </Style>
+            <Style TargetType="FontImageSource">
+                <Setter Property="Color" Value="White"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid Padding="30" RowDefinitions="Auto, *, Auto, Auto" RowSpacing="10">
-        <Label Text="This text is a a XAML control, but the control below is BLAZOR!"
+    <ScrollView>
+
+        <Grid Padding="30" RowDefinitions="Auto, 400, Auto, Auto, Auto, Auto, Auto" RowSpacing="10">
+            <Label Text="This text is a a XAML control, but the control below is BLAZOR!"
                FontSize="Body"
                FontAttributes="Bold"
                HorizontalOptions="Center" />
 
-        <blazor:MapLayersControl Grid.Row="1"></blazor:MapLayersControl>
-        
-        <HorizontalStackLayout Grid.Row="3" HorizontalOptions="Center" Spacing="10">
-            <ImageButton Clicked="AddRoadLayer" Padding="0,0,2,0">
-                <ImageButton.Source>
-                    <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconRoadVariant}"
+            <blazor:MapLayersControl Grid.Row="1"></blazor:MapLayersControl>
+
+            <VerticalStackLayout Grid.Row="5" Spacing="10">
+                <HorizontalStackLayout HorizontalOptions="Start"  Spacing="10">
+                    <Entry x:Name="longEntry" WidthRequest="150" Text="39,161296491274676"/>
+                    <Entry x:Name="latEntry" WidthRequest="150" Text="-3,007208155925328"/>
+                </HorizontalStackLayout>
+                <Button HorizontalOptions="Start" Text="SET CENTER" WidthRequest="200" BackgroundColor="{StaticResource BlueMapbox}" TextColor="White"
+                    Clicked="SetCenter"/>
+            </VerticalStackLayout>
+
+            <HorizontalStackLayout Grid.Row="6" HorizontalOptions="Start" Spacing="10">
+                <Entry x:Name="zoomEntry" WidthRequest="150"/>
+                <Button Text="SET ZOOM" BackgroundColor="{StaticResource BlueMapbox}" TextColor="White"
+                    Clicked="SetZoom"/>
+            </HorizontalStackLayout>
+
+            <Grid Grid.Row="4" ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                <Label Text="Rotation" Margin="0,0,10,0" VerticalOptions="Center"/>
+                <Slider x:Name="rotSlider" Grid.Column="1" ValueChanged="RotationChange" 
+                    Minimum="0" Maximum="360" ThumbColor="{StaticResource BlueMapbox}"/>
+            </Grid>
+
+            <HorizontalStackLayout Grid.Row="2" HorizontalOptions="Center" Spacing="10">
+                <ImageButton Clicked="AddRoadLayer">
+                    <ImageButton.Source>
+                        <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconRoadVariant}"
                                      Color="{AppThemeBinding Dark=White, Default=White,Light=Black}"/>
-                </ImageButton.Source>
-            </ImageButton>
-            <ImageButton Clicked="AddPoints" Padding="0,0,4,0">
-                <ImageButton.Source>
-                    <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconMapMarker}"
+                    </ImageButton.Source>
+                </ImageButton>
+                <ImageButton Clicked="AddPoints">
+                    <ImageButton.Source>
+                        <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconMapMarker}"
                                      Color="{AppThemeBinding Dark=White, Default=White,Light=Black}"/>
-                </ImageButton.Source>
-            </ImageButton>
-        </HorizontalStackLayout>
-    </Grid>
+                    </ImageButton.Source>
+                </ImageButton>
+                <ImageButton Clicked="AddCompass">
+                    <ImageButton.Source>
+                        <FontImageSource FontFamily="MaterialIcons" Glyph="{StaticResource IconCompass}"
+                                     Color="{AppThemeBinding Dark=White, Default=White,Light=Black}"/>
+                    </ImageButton.Source>
+                </ImageButton>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Grid.Row="3" HorizontalOptions="Center" Spacing="10">
+                <VerticalStackLayout x:Name="zoomLayout">
+                    <Label Text="Zoom" Margin="10,0" VerticalOptions="Center"/>
+                    <Switch x:Name="zoom" Toggled="ZoomChange" IsToggled="True" OnColor="{StaticResource BlueMapbox}"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout x:Name="rotationLayout">
+                    <Label Text="Rotation" Margin="10,0" VerticalOptions="Center"/>
+                    <Switch x:Name="rotation" Toggled="RotationChange" IsToggled="True" OnColor="{StaticResource BlueMapbox}"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout>
+                    <Label Text="Inactive" Margin="10,0" VerticalOptions="Center"/>
+                    <Switch Toggled="InactiveChange" OnColor="{StaticResource BlueMapbox}"/>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+
+        </Grid>
+    </ScrollView>
 </ContentPage>

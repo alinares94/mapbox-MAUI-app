@@ -28,3 +28,17 @@ html, body {
 .mapboxgl-popup {
     max-width: 200px;
 }
+
+.hide-compass {
+    display: none !important
+}
+
+.mapboxgl-ctrl-compass {
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.mapboxgl-ctrl-icon {
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Compass-icon_bb_N.svg/1725px-Compass-icon_bb_N.svg.png") !important;
+    background-size: contain;
+}

@@ -3,7 +3,8 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:razor="clr-namespace:MauiBlazorApp.BlazorControls.Razor"
                x:Class="MauiBlazorApp.BlazorControls.Xaml.MapLayersControl"
-               HostPage="wwwroot/index.html">
+               HostPage="wwwroot/index.html"
+               BlazorWebViewInitialized="OnBlazorWebViewInitialized">
     <BlazorWebView.RootComponents>
         <RootComponent Selector="#content" ComponentType="{x:Type razor:MapLayers}" />
     </BlazorWebView.RootComponents>

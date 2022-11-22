@@ -8,4 +8,11 @@ public partial class MapLayersControl : BlazorWebView
 	{
 		InitializeComponent();
 	}
+
+    private void OnBlazorWebViewInitialized(object sender, Microsoft.AspNetCore.Components.WebView.BlazorWebViewInitializedEventArgs e)
+    {
+#if WINDOWS
+        e.WebView.CoreWebView2.Settings.IsZoomControlEnabled = false;
+#endif
+    }
 }
