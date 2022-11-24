@@ -1,4 +1,5 @@
 
+const key = 'pk.eyJ1IjoiYWxpbmFyZXM5NCIsImEiOiJjbGFlNzFrMmIwcmd2M3BzNGNqMWVoYXlqIn0.g0zgrvsqzVkjd1yoScwWig';
 const defaultContainer = 'map';
 const defaultStyle = 'mapbox://styles/mapbox/streets-v11';
 let mapLayers;

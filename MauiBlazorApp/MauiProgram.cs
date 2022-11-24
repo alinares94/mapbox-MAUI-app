@@ -1,4 +1,6 @@
-﻿namespace MauiBlazorApp;
+﻿using MauiBlazorApp.Handlers;
+
+namespace MauiBlazorApp;
 
 public static class MauiProgram
 {
@@ -13,7 +15,8 @@ public static class MauiProgram
 				fonts.AddFont("MaterialIcons.ttf", "MaterialIcons");
 			});
 
-		builder.Services.AddMauiBlazorWebView();
+		CustomBlazorWebviewHandler.Handle();
+        builder.Services.AddMauiBlazorWebView();
 #if DEBUG
 		builder.Services.AddBlazorWebViewDeveloperTools();
 #endif
